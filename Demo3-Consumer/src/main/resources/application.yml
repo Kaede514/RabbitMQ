@@ -1,0 +1,14 @@
+# rabbitmq配置
+spring:
+  rabbitmq:
+    host: 192.168.138.128
+    port: 5672
+    username: root
+    password: 123456
+    listener:
+      simple:
+        # 开启重试机制
+        retry:
+          enabled: true
+        # 指定ACK机制为手动
+        acknowledge-mode: manual
