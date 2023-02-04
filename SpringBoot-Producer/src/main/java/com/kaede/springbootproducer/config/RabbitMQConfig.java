@@ -39,4 +39,9 @@ public class RabbitMQConfig {
             .with("jd.#");   // 指定routingKey
     }
 
+    @Bean
+    public Queue objectMessageQueue(){
+        return new Queue("object.queue");
+    }
+
 }
