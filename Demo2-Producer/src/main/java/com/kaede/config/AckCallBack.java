@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @create 2023-01-19
  */
 
-@Component
+// @Component
 @Slf4j
 public class AckCallBack implements RabbitTemplate.ConfirmCallback {
 

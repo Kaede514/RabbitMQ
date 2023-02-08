@@ -1,11 +1,6 @@
 package com.kaede.config;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,22 +10,22 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-@ConfigurationProperties(prefix = "spring.rabbitmq")
-@Getter
-@Setter
+// @ConfigurationProperties(prefix = "spring.rabbitmq")
+// @Getter
+// @Setter
 public class RabbitMQConfig {
 
-    private String host;
+    /* private String host;
     private Integer port;
     private String username;
-    private String password;
+    private String password; */
 
     public final static String CONFIRM_EXCHANGE_NAME = "confirm-exchange";
     public final static String BACKUP_EXCHANGE_NAME = "backup-exchange";
     public final static String CONFIRM_QUEUE_NAME = "confirm-queue";
     public final static String BACKUP_QUEUE_NAME = "backup-queue";
 
-    @Bean("myRabbitTemplate")
+    /* @Bean("myRabbitTemplate")
     public RabbitTemplate rabbitTemplate(AckCallBack ackCallBack, ReturnCallBack returnCallBack) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(cachingConnectionFactory());
         // 开启确认的回调
@@ -58,7 +53,7 @@ public class RabbitMQConfig {
         // CORRELATED：若返回的确认为false，则不会关闭通道
         factory.setPublisherConfirmType(CachingConnectionFactory.ConfirmType.CORRELATED);
         return factory;
-    }
+    } */
 
     @Bean
     public Queue confirmQueue() {

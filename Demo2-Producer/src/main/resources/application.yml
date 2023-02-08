@@ -5,3 +5,10 @@ spring:
     port: 5672
     username: root
     password: 123456
+    # 开启publisher-confirm
+    publisher-confirm-type: correlated
+    # 开启publish-return
+    publisher-returns: true
+    # 定义消息路由失败时的策略，true则调用ReturnCallback
+    template:
+      mandatory: true
