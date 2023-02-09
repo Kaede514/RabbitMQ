@@ -30,18 +30,15 @@ public class RabbitMQConfig {
     public Binding deadBinding() {
         return BindingBuilder.bind(deadQueue())
             .to(deadExchange())
-            .with("ack");
+            .with("dl");
     }
 
     @Bean
     public Queue delayQueue() {
-        // 设置过期队列
-        Queue queue = new Queue(DELAY_QUEUE_NAME);
-        // 给队列绑定死信交换机
-        queue.addArgument("x-dead-letter-exchange", DEAD_EXCHANGE_NAME);
-        // 设置队列的过期时间
-        queue.addArgument("x-message-ttl", 30000);
-        return queue;
+        return QueueBuilder.durable(DELAY_QUEUE_NAME).ttl(30000)
+            .deadLetterExchange(DEAD_EXCHANGE_NAME)
+            .deadLetterRoutingKey("dl")
+            .build();
     }
     @Bean
     public DirectExchange delayExchange() {

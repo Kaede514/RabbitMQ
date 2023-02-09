@@ -22,7 +22,7 @@ public class OrderController {
     @PostMapping("/save")
     public String saveOrder(Long id) {
         CorrelationData data = new CorrelationData(id.toString());
-        rabbitTemplate.convertAndSend("delay-exchange", "ack", id);
+        rabbitTemplate.convertAndSend("delay-exchange", "ack", id, data);
         return "OK " + id;
     }
 

@@ -28,9 +28,13 @@ public class CommonConfig implements ApplicationContextAware {
         // 设置ReturnCallback
         rabbitTemplate.setReturnsCallback((returned) -> {
             // 判断是否是延迟消息
-
+            if (returned.getMessage().getMessageProperties().getReceivedDelay() > 0) {
+                // 是延迟消息，忽略错误提示
+                return;
+            }
             log.info("消息：{}被服务器退后，退回原因：{}，退回码：{}",
                 returned.getMessage(), returned.getReplyText(), returned.getReplyCode());
+            // 如果有需要的话，做重发
         });
     }
 

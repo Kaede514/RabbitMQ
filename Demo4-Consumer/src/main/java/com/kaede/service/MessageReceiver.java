@@ -16,7 +16,8 @@ import java.io.IOException;
 public class MessageReceiver {
 
     // 指定消费队列
-    @RabbitListener(queues = {"dead-delay-queue"})
+    // @RabbitListener(queues = {"dead-delay-queue"})
+    @RabbitListener(queues = {"delay-queue"})
     public void receive(String body, Channel channel, Message message) {
         try {
             System.out.println("msg: " + body);

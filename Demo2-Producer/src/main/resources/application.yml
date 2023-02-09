@@ -9,6 +9,6 @@ spring:
     publisher-confirm-type: correlated
     # 开启publish-return
     publisher-returns: true
-    # 定义消息路由失败时的策略，true则调用ReturnCallback
+    # 定义消息路由失败时的策略，true则调用ReturnsCallback
     template:
       mandatory: true

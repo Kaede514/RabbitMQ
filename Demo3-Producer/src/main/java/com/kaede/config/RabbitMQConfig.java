@@ -21,15 +21,22 @@ public class RabbitMQConfig {
     public Queue testQueue() {
         // 普通队列
         // return new Queue(TEST_QUEUE_NAME);
-        // 设置过期队列
-        Queue queue = new Queue(TEST_QUEUE_NAME);
-        // 给队列绑定死信交换机
-        queue.addArgument("x-dead-letter-exchange", DEAD_EXCHANGE_NAME);
-        // 限制队列最大长度
-        // queue.addArgument("x-max-length", 10);
-        // 设置队列的过期时间
-        // queue.addArgument("x-message-ttl", 5000);
-        return queue;
+        // 设置过期队列，并设置队列的过期时间
+        // return QueueBuilder.durable(TEST_QUEUE_NAME).ttl(5000).build();
+        // 设置过期队列，限制队列最大长度，并给队列绑定死信交换机
+        /* return QueueBuilder.durable(TEST_QUEUE_NAME).maxLength(10)
+            .deadLetterExchange(DEAD_EXCHANGE_NAME)
+            .deadLetterRoutingKey("dl")
+            .build(); */
+        // 设置过期队列，设置队列过期时间，并给队列绑定死信交换机
+        /* return QueueBuilder.durable(TEST_QUEUE_NAME).ttl(5000)
+            .deadLetterExchange(DEAD_EXCHANGE_NAME)
+            .deadLetterRoutingKey("dl")
+            .build(); */
+        return QueueBuilder.durable(TEST_QUEUE_NAME)
+            .deadLetterExchange(DEAD_EXCHANGE_NAME)
+            .deadLetterRoutingKey("dl")
+            .build();
     }
     @Bean
     public DirectExchange testExchange() {
@@ -55,7 +62,7 @@ public class RabbitMQConfig {
     public Binding deadBinding() {
         return BindingBuilder.bind(deadQueue())
             .to(deadExchange())
-            .with("ack");
+            .with("dl");
     }
 
 }
